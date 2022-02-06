@@ -209,15 +209,15 @@ function acertaPalavra(event) {
 
         } 
         
-        if (palavras.lenght() == palavrasAcertadas.lenght()){
+    if (palavras.length == palavrasAcertadas.length){
 
-            alert("GANHOU!");
+        alert("GANHOU!");
 
-        } else if (chances == 6){
+    } else if (chances == 6){
 
-            alert("Você Perdeu!");
+        alert("Você Perdeu!");
 
-        } 
+    } 
 
 
      
