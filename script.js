@@ -34,41 +34,41 @@ function adicionaPalavra() {
         return;
 
     } else {
-        
+
         if (listaBranca.test(texto)) {
 
             alert("O jogo não permite números, acentos e caractéres especiais");
             return null;
-      
+
         } else {
 
             palavras.push(texto);
             alert("Palavra Adicionada com Sucesso.");
-    }
-        
+        }
+
         console.log(palavras);
 
-    palavraInput.value ="";
-}
+        palavraInput.value = "";
+    }
 
 }
 
 function selecionaPalavra() { // problemas com nomes repetios e undefined
 
-  
+
     sel1 = palavras[Math.floor(Math.random() * (palavras.length))];
 
-        if (sel1 == selAntiga) {
+    if (sel1 == selAntiga) {
 
-            sel1 = palavras[Math.floor(Math.random() * (palavras.length))];
+        sel1 = palavras[Math.floor(Math.random() * (palavras.length))];
 
-        }else {
+    } else {
 
-            selAntiga = sel1;
-            return palavraSel = sel1;
+        selAntiga = sel1;
+        return palavraSel = sel1;
 
-        }
-     
+    }
+
     console.log(sel1);
     console.log(selAntiga);
     return palavraSel = sel1;
@@ -99,7 +99,7 @@ function acertaPalavra(event) {
     pincel.font = "40px Arial";
     escolha = event.key.toUpperCase();
     let tabelaVerdade = [];
-    let letras = [...palavraSel];
+    letras = [...palavraSel];
 
 
     if (palavrasAcertadas.includes(escolha) || palavrasErradas.includes(escolha)) { //condição para saber se temos letras repetidas
@@ -109,8 +109,7 @@ function acertaPalavra(event) {
 
     } else {
 
-        for (let i = 0; i < letras.length; i++) {
-
+        for (let i = 0; i < letras.length; i++) { //Constrói um array com booleanos para cada letra sorteada
             if (letras[i].includes(escolha)) {
 
                 tabelaVerdade.push(true);
@@ -128,41 +127,40 @@ function acertaPalavra(event) {
 
         palavrasAcertadas.push(escolha);
         atualizaTela(600, 300, 300, 100);
-            pincel.fillStyle= "darkgreen";
-            pincel.fillText("Acertou", x + 300, y - 300 );
-            pincel.fillStyle= "red";
-            pincel.fillText("Palavras Acertadas: ", x - 200, y - 630);
-            pincel.fillStyle= "darkgreen";
+        pincel.fillStyle = "darkgreen";
+        pincel.fillText("Acertou", x + 300, y - 300);
+        pincel.fillStyle = "red";
+        pincel.fillText("Palavras Acertadas: ", x - 200, y - 630);
+        pincel.fillStyle = "darkgreen";
 
-            for (let i = 0; i < palavrasAcertadas.length; i++){
+        for (let i = 0; i < palavrasAcertadas.length; i++) {
 
-                pincel.fillText(palavrasAcertadas[i] + "-", (x + 170) + sum , y - 630 );
-                sum = sum + 50;
-            }
-            
+            pincel.fillText(palavrasAcertadas[i] + "-", (x + 170) + sum, y - 630);
+            sum = sum + 50;
+        }
+
 
     } else {
 
         palavrasErradas.push(escolha);
         atualizaTela(600, 300, 300, 100);
-            pincel.fillStyle= "red";
-            pincel.fillText("Errou!", x + 300, y - 300 );
-            chances++;
-            pincel.fillStyle= "red";
-            pincel.fillText("Palavras Erradas: ", x - 200, y - 550);
-            pincel.fillStyle= "darkgreen";
+        pincel.fillStyle = "red";
+        pincel.fillText("Errou!", x + 300, y - 300);
+        chances++;
+        pincel.fillStyle = "red";
+        pincel.fillText("Palavras Erradas: ", x - 200, y - 550);
+        pincel.fillStyle = "darkgreen";
 
-            for (let i = 0; i < palavrasErradas.length; i++){
+        for (let i = 0; i < palavrasErradas.length; i++) {
 
-                pincel.fillText(palavrasErradas[i] + "-", (x + 130) + sum , y - 550);
-                sum = sum + 50;
-            }
+            pincel.fillText(palavrasErradas[i] + "-", (x + 130) + sum, y - 550);
+            sum = sum + 50;
+        }
     }
 
-    for (let i = 0; i < letras.length; i++) {
+    for (let i = 0; i < letras.length; i++) {   //desenha as palavras acertadas. No array tabelaVerdade, cada elemento é comparado para true ou false. Sendo true, a letra é criada.
 
         if (tabelaVerdade[i]) {
-            alert(tabelaVerdade[i])
             pincel.fillText(letras[i], x + add, y);
             pincel.strokeText(letras[i], x + add, y);
             acertos++;
@@ -172,10 +170,10 @@ function acertaPalavra(event) {
         } else {
 
             add = add + 50;
+        }
+
     }
 
-     }
-     
 
     switch (chances) { //condições para desenhar o corpo
 
@@ -194,58 +192,32 @@ function acertaPalavra(event) {
         case 4:
             desenhaBracoEsquerdo();
             break;
-        
+
         case 5:
             desenhaPernaDireita();
             break;
 
         case 6:
-            
             desenhaPernaEsquerda();
+            alert("Você Perdeu!")
+            finalizaJogo();
             break;
 
         default:
-            return null;
-
-        } 
-        
-    if (palavras.length == palavrasAcertadas.length){
-
-        alert("GANHOU!");
-
-    } else if (chances == 6){
-
-        alert("Você Perdeu!");
-
-    } 
-
-
-     
-/*    if (chances == 5){
-
-            alert("Você Perdeu!");
-
-         }
- 
- /*else {
-                  
-            if (acertos > 0){
-
-                atualizaTela(600, 300, 300, 100);
-                pincel.fillStyle= "red";
-                pincel.fillText("Acertou "+ acertos +" !", x + 300, y - 300 );
-
-         }
-        
-    }*/
-
-        console.log(letras);
-        console.log(tabelaVerdade);
-        console.log(palavrasAcertadas + " Acertadas");
-        console.log(palavrasErradas + " Erradas");
-        console.log(chances + " Chances");
+            detectaVitoria();
 
     }
+
+    detectaVitoria();
+
+    //console.log(letras);
+    //console.log(tabelaVerdade.length);
+    //console.log(palavrasAcertadas + " Acertadas");
+    //console.log(palavrasErradas + " Erradas");
+    //console.log(chances + " Chances");
+    //console.log(tabelaVerdade);
+
+}
 
 function desenhaSlots(x, y, w, h) { //desenha os guias para mostrar as letras.
 
@@ -268,6 +240,44 @@ function desenhaSlots(x, y, w, h) { //desenha os guias para mostrar as letras.
     }
 }
 
+function detectaVitoria(tabelaVitoria) {
+
+    tabelaVitoria = [];
+
+    if (palavrasAcertadas.length > 0) {
+
+        for (let i = 0; i < letras.length; i++) {
+
+            if (!palavrasAcertadas.includes(letras[i])) {
+
+                tabelaVitoria.push(false);
+
+            } else {
+
+                tabelaVitoria.push(true);
+            }
+
+        }
+        
+     }
+     
+     if (tabelaVitoria.every(e => e === true) && (acertos > 0)){ //Condição acertos é uma gambiarra para evitar que a primeira palavra errada retorner a mensagem de vitória
+
+        alert("Você Ganhou!");
+    
+    }
+
+    console.log(tabelaVitoria);
+
+}
+
+function finalizaJogo() {
+
+    return 0;
+
+}
+
+let letras = [];
 let selAntiga;
 let chances = 0;
 let acertos = 0;
@@ -296,4 +306,3 @@ botaoEnvia.addEventListener("click", adicionaPalavra);
 });//*/
 
 document.addEventListener("keypress", acertaPalavra, 320, 680, 40);
-
