@@ -69,20 +69,27 @@ function selecionaPalavra() { // problemas com nomes repetios e undefined
 
     }
 
-    console.log(sel1);
+   /* console.log(sel1);
     console.log(selAntiga);
-    return palavraSel = sel1;
+    return palavraSel = sel1;*/
 
 }
 
 function iniciaJogo() {
 
-    let game = true;
+    letras = [];
+    palavrasErradas = [];
+    palavrasAcertadas = [];
+    chances = 0;
+    acertos = 0;
+    document.addEventListener("keypress", acertaPalavra, 320, 680, 40);
+    document.getElementById("btn").style.visibility = "hidden";
+    document.getElementById("btn2").style.visibility = "hidden";
+    document.getElementById("text-input").style.visibility = "hidden";
+    selecionaPalavra();
     atualizaTela(0, 0, 1200, 800);
     desenhaForca();
-    selecionaPalavra();
     desenhaSlots(350, 690, 40, 10);
-    //   acertaPalavra(320, 680, 40);
 
 
 
@@ -101,15 +108,19 @@ function acertaPalavra(event) {
     let tabelaVerdade = [];
     letras = [...palavraSel];
 
+    if (/\d/.test(escolha)){
+
+        return 0;
+    }
 
     if (palavrasAcertadas.includes(escolha) || palavrasErradas.includes(escolha)) { //condição para saber se temos letras repetidas
 
-        alert("Esta letra já foi usada. Selecione outra.");
+        alert("Esta letra já foi usada. Tente outra.");
         return null;
 
     } else {
 
-        for (let i = 0; i < letras.length; i++) { //Constrói um array com booleanos para cada letra sorteada
+        for (let i = 0; i < letras.length; i++) { //Constrói um array com valores booleanos para cada letra sorteada
             if (letras[i].includes(escolha)) {
 
                 tabelaVerdade.push(true);
@@ -158,14 +169,13 @@ function acertaPalavra(event) {
         }
     }
 
-    for (let i = 0; i < letras.length; i++) {   //desenha as palavras acertadas. No array tabelaVerdade, cada elemento é comparado para true ou false. Sendo true, a letra é criada.
+    for (let i = 0; i < letras.length; i++) {   //desenha as palavras acertadas. No array tabelaVerdade, cada elemento é comparado para true ou false. Sendo true, a letra é desenhada.
 
         if (tabelaVerdade[i]) {
             pincel.fillText(letras[i], x + add, y);
             pincel.strokeText(letras[i], x + add, y);
             acertos++;
             add = add + 50;
-
 
         } else {
 
@@ -199,7 +209,9 @@ function acertaPalavra(event) {
 
         case 6:
             desenhaPernaEsquerda();
-            alert("Você Perdeu!")
+            //atualizaTela(450, 400,50, 400);
+            pincel.fillStyle = "brown";
+            pincel.fillText("Você Perdeu.", 500, 300);
             finalizaJogo();
             break;
 
@@ -208,7 +220,7 @@ function acertaPalavra(event) {
 
     }
 
-    detectaVitoria();
+    //detectaVitoria();
 
     //console.log(letras);
     //console.log(tabelaVerdade.length);
@@ -258,22 +270,27 @@ function detectaVitoria(tabelaVitoria) {
             }
 
         }
-        
-     }
-     
-     if (tabelaVitoria.every(e => e === true) && (acertos > 0)){ //Condição acertos é uma gambiarra para evitar que a primeira palavra errada retorner a mensagem de vitória
 
-        alert("Você Ganhou!");
-    
     }
 
-    console.log(tabelaVitoria);
+    if (tabelaVitoria.every(e => e === true)) { //Condição acertos é uma gambiarra para evitar que a primeira palavra errada retorner a mensagem de vitória
+
+
+        //atualizaTela(450, 400,50, 400);
+        pincel.fillStyle = "red";
+        pincel.fillText("Paranbéns, Você Venceu!", 500, 300);
+        finalizaJogo();
+
+    }
 
 }
 
 function finalizaJogo() {
 
-    return 0;
+    document.removeEventListener("keypress", acertaPalavra);
+    document.getElementById("btn").style.visibility = "visible";
+    document.getElementById("btn2").style.visibility = "visible";
+    document.getElementById("text-input").style.visibility = "visible";
 
 }
 
@@ -281,9 +298,9 @@ let letras = [];
 let selAntiga;
 let chances = 0;
 let acertos = 0;
-const palavrasErradas = [];
-const palavrasAcertadas = [];
-const palavras = ["ASSASSINO", "LINUX", "JAVASCRIPT", "TETRAGRAMATON"];
+let palavrasErradas = [];
+let palavrasAcertadas = [];
+const palavras = ["ASSUNTO", "OURO", "PAROXITONA"];
 let palavraSel;
 let palavraInput = document.getElementById("text-input");
 let botaoEnvia = document.getElementById("btn2");
@@ -297,12 +314,3 @@ pincel.fillStyle = "darkgrey";
 pincel.fillRect(0, 0, 1200, 800);
 botaoInicia.addEventListener("click", iniciaJogo);
 botaoEnvia.addEventListener("click", adicionaPalavra);
-/*canvas.addEventListener("mousemove", function (event){
-
-    let x = event.pageX;
-    let y = event.pageY - 300;
-
-    return console.log(x, y);
-});//*/
-
-document.addEventListener("keypress", acertaPalavra, 320, 680, 40);
