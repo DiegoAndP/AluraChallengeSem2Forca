@@ -1,5 +1,6 @@
 function atualizaTela(x, y, h, w) {
-
+    
+    pincel.beginPath();
     pincel.fillStyle = "darkgrey";
     pincel.fillRect(x, y, h, w);
 
@@ -43,7 +44,6 @@ function desenhaCabeca(){
 
 function desenhaTronco(){
 
-    pincel.beginPath();
     pincel.fillStyle= corCorpo;
     pincel.fillRect(355, 335, 30, 100);
 
@@ -87,4 +87,22 @@ function desenhaPernaEsquerda(){
     pincel.lineTo(450, 500);
     pincel.lineTo(355, 425);
     pincel.fill();
+}
+
+function desenhaSlots(x, y, w, h) {
+    //x= 450;
+    //y = 700
+    //w = 50;
+    //h = 10;
+    //add = 70;
+    pincel.fillStyle = "green";
+    pincel.strokeStyle = "black";
+    let add = 0;
+
+    for (let i = 0; i < palavraSel.length; i++) {
+
+        pincel.fillRect(x + add, y, w, h);
+        pincel.strokeRect(x + add, y, w, h);
+        add = add + 50;
+    }
 }

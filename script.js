@@ -1,22 +1,3 @@
-/*function analisaTexto() { //problema na listabranca para achar números
-
-    if (listaBranca.test(palavraInput.value)) {
-
-        alert("O jogo não permite números, acentos e caractéres especiais");
-        //return null;
-
-    } else if (minusculas.test(palavraInput.value)) {
-
-        texto = palavraInput.value.toUpperCase();
-        return texto;
-
-    } else {
-
-        texto = palavraInput.value;
-        return texto;
-    }
-}*/
-
 function adicionaPalavra() {
 
     let texto = null;
@@ -82,7 +63,7 @@ function iniciaJogo() {
     palavrasAcertadas = [];
     chances = 0;
     acertos = 0;
-    document.addEventListener("keypress", acertaPalavra, 320, 680, 40);
+    document.addEventListener("keypress", acerta, 320, 680, 40);
     document.getElementById("btn").style.visibility = "hidden";
     document.getElementById("btn2").style.visibility = "hidden";
     document.getElementById("text-input").style.visibility = "hidden";
@@ -95,20 +76,19 @@ function iniciaJogo() {
 
 }
 
-function acertaPalavra(event) {
+let acerta = function acerta(event) {
 
     let sum = 0;
     let x = 355;
     let y = 680;
     let add = 0;
-    //let acertos = 0;
     pincel.fillStyle = "red";
-    pincel.font = "40px Arial";
+    pincel.font = "40px serif";
     escolha = event.key.toUpperCase();
     let tabelaVerdade = [];
     letras = [...palavraSel];
 
-    if (/\d/.test(escolha)){
+    if (/[^A-Z]/.test(escolha) || (escolha == "ENTER")){
 
         return 0;
     }
@@ -146,7 +126,7 @@ function acertaPalavra(event) {
 
         for (let i = 0; i < palavrasAcertadas.length; i++) {
 
-            pincel.fillText(palavrasAcertadas[i] + "-", (x + 170) + sum, y - 630);
+            pincel.fillText(palavrasAcertadas[i] + " ", (x + 170) + sum, y - 630);
             sum = sum + 50;
         }
 
@@ -164,7 +144,7 @@ function acertaPalavra(event) {
 
         for (let i = 0; i < palavrasErradas.length; i++) {
 
-            pincel.fillText(palavrasErradas[i] + "-", (x + 130) + sum, y - 550);
+            pincel.fillText(palavrasErradas[i] + " ", (x + 130) + sum, y - 550);
             sum = sum + 50;
         }
     }
@@ -216,11 +196,11 @@ function acertaPalavra(event) {
             break;
 
         default:
-            detectaVitoria();
+            break;
 
     }
 
-    //detectaVitoria();
+    detectaVitoria();
 
     //console.log(letras);
     //console.log(tabelaVerdade.length);
@@ -231,34 +211,11 @@ function acertaPalavra(event) {
 
 }
 
-function desenhaSlots(x, y, w, h) { //desenha os guias para mostrar as letras.
-
-    //x= 450;
-    //y = 700
-    //w = 50;
-    //h = 10;
-    //add = 70;
-    //pincel.beginPath();
-    pincel.fillStyle = "green";
-    pincel.strokeStyle = "black";
-    let add = 0;
-
-    for (let i = 0; i < palavraSel.length; i++) {
-
-        pincel.beginPath();
-        pincel.fillRect(x + add, y, w, h);
-        pincel.strokeRect(x + add, y, w, h);
-        add = add + 50;
-    }
-}
-
-function detectaVitoria(tabelaVitoria) {
+function detectaVitoria() {
 
     tabelaVitoria = [];
 
-    if (palavrasAcertadas.length > 0) {
-
-        for (let i = 0; i < letras.length; i++) {
+    for (let i = 0; i < letras.length; i++) {
 
             if (!palavrasAcertadas.includes(letras[i])) {
 
@@ -270,15 +227,15 @@ function detectaVitoria(tabelaVitoria) {
             }
 
         }
-
-    }
+  
+    console.log(tabelaVitoria);
 
     if (tabelaVitoria.every(e => e === true)) { //Condição acertos é uma gambiarra para evitar que a primeira palavra errada retorner a mensagem de vitória
 
 
         //atualizaTela(450, 400,50, 400);
         pincel.fillStyle = "red";
-        pincel.fillText("Paranbéns, Você Venceu!", 500, 300);
+        pincel.fillText("Parabéns, você venceu!", 500, 300);
         finalizaJogo();
 
     }
@@ -287,20 +244,21 @@ function detectaVitoria(tabelaVitoria) {
 
 function finalizaJogo() {
 
-    document.removeEventListener("keypress", acertaPalavra);
+    document.removeEventListener("keypress", acerta, 320, 680, 40);
     document.getElementById("btn").style.visibility = "visible";
     document.getElementById("btn2").style.visibility = "visible";
     document.getElementById("text-input").style.visibility = "visible";
 
 }
 
+let tabelaVitoria = [];
 let letras = [];
 let selAntiga;
 let chances = 0;
 let acertos = 0;
 let palavrasErradas = [];
 let palavrasAcertadas = [];
-const palavras = ["ASSUNTO", "OURO", "PAROXITONA"];
+const palavras = ["JAVASCRIPT", "UBUNTU", "CALOPSITA", "ASSASSINO","TETRAGRAMANTON"];
 let palavraSel;
 let palavraInput = document.getElementById("text-input");
 let botaoEnvia = document.getElementById("btn2");
