@@ -36,7 +36,6 @@ function adicionaPalavra() {
 
 function selecionaPalavra() { // problemas com nomes repetios e undefined
 
-
     sel1 = palavras[Math.floor(Math.random() * (palavras.length))];
 
     if (sel1 == selAntiga) {
@@ -49,10 +48,6 @@ function selecionaPalavra() { // problemas com nomes repetios e undefined
         return palavraSel = sel1;
 
     }
-
-   /* console.log(sel1);
-    console.log(selAntiga);
-    return palavraSel = sel1;*/
 
 }
 
@@ -68,9 +63,9 @@ function iniciaJogo() {
     document.getElementById("btn2").style.visibility = "hidden";
     document.getElementById("text-input").style.visibility = "hidden";
     selecionaPalavra();
-    atualizaTela(0, 0, 1200, 800);
+    atualizaTela(0, 0, 1200, 700);
     desenhaForca();
-    desenhaSlots(350, 690, 40, 10);
+    desenhaSlots(350, 590, 40, 10);
 
 
 
@@ -79,8 +74,8 @@ function iniciaJogo() {
 let acerta = function acerta(event) {
 
     let sum = 0;
-    let x = 355;
-    let y = 680;
+    let x = 300;
+    let y = 600;
     let add = 0;
     pincel.fillStyle = "red";
     pincel.font = "40px serif";
@@ -114,20 +109,21 @@ let acerta = function acerta(event) {
 
     }
 
+    pincel.font = "bold 40px serif";
+
     if (letras.includes(escolha)) {
 
         palavrasAcertadas.push(escolha);
         atualizaTela(600, 300, 300, 100);
+        desenhaForca();
+        pincel.fillStyle = "white";
+        pincel.fillText("Acertou!", x - 100, y - 440);
         pincel.fillStyle = "darkgreen";
-        pincel.fillText("Acertou", x + 300, y - 300);
-        pincel.fillStyle = "red";
-        pincel.fillText("Palavras Acertadas: ", x - 200, y - 630);
-        pincel.fillStyle = "darkgreen";
-
+        
         for (let i = 0; i < palavrasAcertadas.length; i++) {
 
-            pincel.fillText(palavrasAcertadas[i] + " ", (x + 170) + sum, y - 630);
-            sum = sum + 50;
+            pincel.fillText(palavrasAcertadas[i] + " ", (x + 230) + sum, y - 550);
+            sum = sum + 30;
         }
 
 
@@ -135,25 +131,23 @@ let acerta = function acerta(event) {
 
         palavrasErradas.push(escolha);
         atualizaTela(600, 300, 300, 100);
-        pincel.fillStyle = "red";
-        pincel.fillText("Errou!", x + 300, y - 300);
+        desenhaForca();
+        pincel.fillStyle = "white";
+        pincel.fillText("Errou!", x - 98 , y - 440 );
         chances++;
-        pincel.fillStyle = "red";
-        pincel.fillText("Palavras Erradas: ", x - 200, y - 550);
         pincel.fillStyle = "darkgreen";
-
         for (let i = 0; i < palavrasErradas.length; i++) {
 
-            pincel.fillText(palavrasErradas[i] + " ", (x + 130) + sum, y - 550);
-            sum = sum + 50;
+            pincel.fillText(palavrasErradas[i] + " ", (x + 200) + sum, y - 500);
+            sum = sum + 30;
         }
     }
 
     for (let i = 0; i < letras.length; i++) {   //desenha as palavras acertadas. No array tabelaVerdade, cada elemento é comparado para true ou false. Sendo true, a letra é desenhada.
 
         if (tabelaVerdade[i]) {
-            pincel.fillText(letras[i], x + add, y);
-            pincel.strokeText(letras[i], x + add, y);
+            pincel.fillText(letras[i], x + 55 + add, y - 15);
+            pincel.strokeText(letras[i], x + 55 + add, y - 15);
             acertos++;
             add = add + 50;
 
@@ -191,7 +185,22 @@ let acerta = function acerta(event) {
             desenhaPernaEsquerda();
             //atualizaTela(450, 400,50, 400);
             pincel.fillStyle = "brown";
-            pincel.fillText("Você Perdeu.", 500, 300);
+            pincel.fillText("Você Perdeu.", 500, 660);
+            pincel.fillStyle = "darkgrey";
+            //atualizaTela(600, 250, 400, 400);
+            pincel.fillStyle = "brown";
+            pincel.fillText("A Palavra Correta é:", 500, 300, 550);
+            add = 0;
+            pincel.fillStyle= "green";
+
+            for (let i = 0; i < letras.length; i++){
+
+                pincel.fillText(letras[i], 500 + add, 350, 500 );
+                pincel.strokeText(letras[i], 500 + add, 350, 500 );
+                add = add + 30;
+
+            }
+
             finalizaJogo();
             break;
 
@@ -202,12 +211,6 @@ let acerta = function acerta(event) {
 
     detectaVitoria();
 
-    //console.log(letras);
-    //console.log(tabelaVerdade.length);
-    //console.log(palavrasAcertadas + " Acertadas");
-    //console.log(palavrasErradas + " Erradas");
-    //console.log(chances + " Chances");
-    //console.log(tabelaVerdade);
 
 }
 
@@ -234,8 +237,9 @@ function detectaVitoria() {
 
 
         //atualizaTela(450, 400,50, 400);
-        pincel.fillStyle = "red";
-        pincel.fillText("Parabéns, você venceu!", 500, 300);
+        pincel.fillStyle = "brown";
+        pincel.fillText("Parabéns, você venceu!", 350, 660);
+        //atualizaTela(600, 250, 500, 400);
         finalizaJogo();
 
     }
@@ -258,7 +262,7 @@ let chances = 0;
 let acertos = 0;
 let palavrasErradas = [];
 let palavrasAcertadas = [];
-const palavras = ["JAVASCRIPT", "UBUNTU", "CALOPSITA", "ASSASSINO","TETRAGRAMANTON"];
+const palavras = ["JAVASCRIPT", "UBUNTU", "CALOPSITA", "ASSASSINO","TETRAGRAMATON"];
 let palavraSel;
 let palavraInput = document.getElementById("text-input");
 let botaoEnvia = document.getElementById("btn2");
@@ -269,6 +273,6 @@ const minusculas = /[a-z]/;
 let canvas = document.getElementById("canvas");
 let pincel = canvas.getContext("2d");
 pincel.fillStyle = "darkgrey";
-pincel.fillRect(0, 0, 1200, 800);
+pincel.fillRect(0, 0, 1200, 700);
 botaoInicia.addEventListener("click", iniciaJogo);
 botaoEnvia.addEventListener("click", adicionaPalavra);
