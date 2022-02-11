@@ -1,6 +1,7 @@
 body {
     background-color: burlywood;
     opacity: 1;
+    text-align: center;
 }
 
 .h1 {
@@ -28,49 +29,19 @@ body {
 
 .button {
     background-color: #4CAF50; /* Green */
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 10px;
     width: auto;
-    border: none;
+    border: 1px solid black;
     color: white;
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     font-size: 20px;
-    border-radius: 15px;
-    margin-left: 10px;
+    border-radius: 10px;
+    margin-left: auto;
     transition: 0.3ms;
     font-family: 'Ubuntu', sans-serif;
-
-}
-
-#btn {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
-#btn1 {
-
-}
-
-.div1 {
-    width: 1000px;
-    height: 1px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-
-.div2   {
-
-    width: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-
-}
-
 
 }
 

@@ -9,7 +9,7 @@ function adicionaPalavra() {
         alert("Digite uma palavra.");
         return;
 
-    } else if (palavras.includes(texto)) { //array.includes retorna false or true para palavras já inceridas no array palavras.
+    } else if (palavras.includes(texto)) { //array.includes retorna false or true para palavras já inseridas no array palavras.
 
         alert("A palavra já consta na memória.");
         return;
@@ -27,15 +27,15 @@ function adicionaPalavra() {
             alert("Palavra Adicionada com Sucesso.");
         }
 
-        console.log(palavras);
+        //console.log(palavras);
 
         palavraInput.value = "";
     }
 
 }
 
-function selecionaPalavra() { // problemas com nomes repetios e undefined
-
+function selecionaPalavra() {
+ 
     sel1 = palavras[Math.floor(Math.random() * (palavras.length))];
 
     if (sel1 == selAntiga) {
@@ -67,8 +67,6 @@ function iniciaJogo() {
     desenhaForca();
     desenhaSlots(350, 590, 40, 10);
 
-
-
 }
 
 let acerta = function acerta(event) {
@@ -95,7 +93,7 @@ let acerta = function acerta(event) {
 
     } else {
 
-        for (let i = 0; i < letras.length; i++) { //Constrói um array com valores booleanos para cada letra sorteada
+        for (let i = 0; i < letras.length; i++) { //Constrói um array com valores booleanos para cada letra escolhida
             if (letras[i].includes(escolha)) {
 
                 tabelaVerdade.push(true);
@@ -125,7 +123,6 @@ let acerta = function acerta(event) {
             pincel.fillText(palavrasAcertadas[i] + " ", (x + 230) + sum, y - 550);
             sum = sum + 30;
         }
-
 
     } else {
 
